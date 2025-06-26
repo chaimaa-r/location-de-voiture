@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>Update Car | Rentaly</title>
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Rentaly - Multipurpose Vehicle Car Rental Website Template" name="description">
+    <meta content="" name="keywords">
+    <meta content="" name="author">
+    
+    <!-- CSS Files -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="bootstrap">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" type="text/css" id="mdb">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static  'css/coloring.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Style personnalisé -->
+    <style>
+        :root {
+            --primary-gray: #2a2a35;
+            --secondary-gray: #3a3a45;
+            --form-gray: #444452;
+            --light-gray: #f5f7fa;
+            --accent-red: #e63946;
+            --dark-red: #d62839;
+            --text-light: #ffffff;
+            --text-gray: #adb5bd;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, #1a1a23 100%);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(42, 42, 53, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #logo img {
+            filter: brightness(0) invert(1);
+        }
+        
+        #mainmenu .menu-item {
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        #mainmenu .menu-item:hover {
+            color: var(--accent-red) !important;
+        }
+        
+        #mainmenu .menu-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+        
+        #mainmenu .menu-item:hover:after {
+            width: 100%;
+        }
+        
+        /* Sidebar */
+        .card.sidebar-card {
+            background: var(--secondary-gray);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+            overflow: hidden;
+        }
+        
+        .profile_avatar {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, var(--secondary-gray) 100%);
+            padding: 30px 20px;
+            margin: -30px -30px 0 -30px;
+            text-align: center;
+        }
+        
+        .profile_img img {
+            border: 3px solid var(--accent-red);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            transition: transform 0.3s ease;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .profile_img img:hover {
+            transform: scale(1.05);
+        }
+        
+        .menu-col a {
+            color: var(--text-light);
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: block;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-col a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .menu-col a:hover:before {
+            left: 100%;
+        }
+        
+        .menu-col a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-red);
+            transform: translateX(5px);
+        }
+       
+        
+        /* Form Elements */
+        .form-control {
+            background: var(--secondary-gray) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
+            padding: 12px 15px !important;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-gray) !important;
+        }
+        
+        .form-control:focus {
+            background: var(--form-gray) !important;
+            border-color: var(--accent-red) !important;
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2) !important;
+            color: var(--text-light) !important;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23adb5bd' viewBox='0 0 16 16'%3e%3cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+        
+        label {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .field-set {
+            margin-bottom: 20px;
+        }
+        
+        /* Button */
+        .btn-main {
+            background: linear-gradient(90deg, var(--accent-red), var(--dark-red)) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 12px 25px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.5px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-main:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn-main:hover:before {
+            left: 100%;
+        }
+        
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4) !important;
+        }
+        
+        /* Form Card */
+        .form-card {
+            background: var(--form-gray);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            border: none;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-card h3 {
+            color: var(--accent-red);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-red);
+        }
+        
+        /* Car Image Preview */
+        .image-square {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--accent-red);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .image-square:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+        }
+        
+        .image-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Alerts */
+        .alert {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border-left: 4px solid #dc3545;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-gray);
+            border-top: 1px solid rgba(230, 57, 70, 0.3);
+        }
+        
+        footer .widget h5 {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        footer .widget h5:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-red);
+        }
+        
+        footer .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        footer .social-icons a:hover {
+            background: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        /* Update Form Styling */
+        .update-form-container {
+            background: var(--form-gray);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        .update-header {
+            color: var(--accent-red);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .update-header:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-red);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .de-flex {
+                flex-direction: column;
+            }
+            
+            .de-flex-col {
+                margin-bottom: 15px;
+            }
+            
+            .header-col-mid {
+                order: 3;
+                width: 100%;
+            }
+            
+            #mainmenu {
+                flex-direction: column;
+            }
+            
+            .image-square {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- page preloader begin -->
+        <div id="de-preloader"></div>
+        <!-- page preloader close -->
+
+        <header class="transparent scroll-light has-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex sm-pt10">
+                            <div class="de-flex-col">
+                                <div class="de-flex-col">
+                                    <!-- logo begin -->
+                                    <div id="logo">
+                                        <a href="{% url 'home' %}">
+                                            <img class="logo-1" src="{% static 'images/logo.png' %}" alt="Rentaly Logo">
+                                        </a>
+                                    </div>
+                                    <!-- logo close -->
+                                </div>
+                            </div>
+                            <div class="de-flex-col header-col-mid">
+                                <ul id="mainmenu">
+                                    <li><a class="menu-item" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="menu-item" href="{% url 'cars' %}">Cars</a></li>
+                                    <li><a class="menu-item" href="{% url 'about' %}">About Us</a></li>
+                                    <li><a class="menu-item" href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="de-flex-col">
+                                <div class="menu_side_area">
+                                    <div class="de-login-menu">
+                                        <span id="de-click-menu-profile" class="de-menu-profile">
+                                            <img src="{% static '../media/' %}{{ manager.image_path }}" class="img-fluid" alt="">
+                                        </span>
+                                        <div id="de-submenu-profile" class="de-submenu">
+                                            <div class="d-name">
+                                                <h4>{{ manager.username }}</h4>
+                                                <span class="text-gray">{{ manager.email }}</span>
+                                            </div>
+                                            <div class="d-line"></div>
+                                            <ul class="menu-col">
+                                                <li><a href="{% url 'signout' %}"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+                                            </ul>
+                                        </div>
+                                        <span id="menu-btn"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <br><br><br><br>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb30">
+                    <div class="card padding30 rounded-5 sidebar-card">
+                        <div class="profile_avatar">
+                            <div class="profile_img">
+                                <img src="{% static '../media/' %}{{ manager.image_path }}" alt="Manager Profile">
+                            </div>
+                            <div class="profile_name">
+                                <h4>
+                                    {{ manager.name }}
+                                    <span class="profile_username text-gray">{{ manager.email }}</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="spacer-20"></div>
+                        <ul class="menu-col">
+                            <li><a href="{% url 'dash_manager' id=manager.id %}" style="color: white;"><i class="fa fa-home"></i>Dashboard</a></li>
+                            <li><a href="{% url 'reservations' id=manager.id %}" style="color: white;"><i class="fa fa-calendar"></i>Reservations</a></li>
+                            <li><a href="{% url 'clients' id=manager.id %}" style="color: white;"><i class="fa fa-users" ></i>Clients</a></li>
+                            <li><a href="{% url 'car_detaills' id=manager.id %}" class="active" style="color: white;"><i class="fa fa-car"></i>Cars</a></li>
+                            <li><a href="{% url 'signout' %}" style="color: white;"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-9">
+                    <!-- Alerts -->
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% elif message.tags == 'success' %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <div class="update-form-container">
+                        <h3 class="update-header">Update Car Information</h3>
+                        
+                        <div class="text-center mb-4">
+                            {% if car.image %}
+                                <div class="image-square">
+                                    <img src="{% static '../media/' %}{{ car.image }}" alt="Car Image">
+                                </div>
+                            {% else %}
+                                <div class="image-square bg-secondary d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-car fa-3x text-gray"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <form name="carForm" id="car_form" method="post" action="{% url 'update_car' car_id=car.car_id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Brand:</label>
+                                        <input type="text" name="brand" id="brand" value="{{ car.brand }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Model:</label>
+                                        <input type="text" name="model" id="model" value="{{ car.model }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Year:</label>
+                                        <input type="text" name="year" id="year" value="{{ car.year }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Color:</label>
+                                        <input type="text" name="color" id="color" value="{{ car.color }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Price ($/day):</label>
+                                        <input type="text" name="price" id="price" value="{{ car.price }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Status:</label>
+                                        <input type="text" name="status" id="status" value="{{ car.status }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Image:</label>
+                                        <input type="file" name="image" id="image" class="form-control">
+                                        <small class="text-gray">Leave blank to keep current image</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label for="fuel">Fuel Type:</label>
+                                        <select id="fuel" name="fuel" class="form-control" required>
+                                            <option value="petrol" {% if car.fuel == 'petrol' %}selected{% endif %}>Petrol</option>
+                                            <option value="diesel" {% if car.fuel == 'diesel' %}selected{% endif %}>Diesel</option>
+                                            <option value="electric" {% if car.fuel == 'electric' %}selected{% endif %}>Electric</option>
+                                            <option value="hybrid" {% if car.fuel == 'hybrid' %}selected{% endif %}>Hybrid</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Kilometers:</label>
+                                        <input type="text" name="km" id="km" value="{{ car.km }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Code:</label>
+                                        <input type="text" name="code" id="code" value="{{ car.code }}" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12 text-center">
+                                    <div class="mt-4">
+                                        <input type="submit" value="Update Car" class="btn-main">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer begin -->
+        <footer class="text-light">
+            <div class="container">
+                <div class="row g-custom-x">
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>About Rentaly</h5>
+                            <p>Where quality meets affordability. We understand the importance of a smooth and enjoyable journey without the burden of excessive costs.</p>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>Contact Info</h5>
+                            <address class="s1">
+                                <span><i class="fa fa-map-marker fa-lg"></i>08 W 36th St, New York, NY 10001</span>
+                                <span><i class="fa fa-phone fa-lg"></i>+1 333 9296</span>
+                                <span><i class="fa fa-envelope-o fa-lg"></i><a
+                                        href="mailto:contact@example.com">contact@example.com</a></span>
+                                <span><i class="fa fa-file-pdf-o fa-lg"></i><a href="#">Download Brochure</a></span>
+                            </address>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-3">
+                        <h5>Quick Links</h5>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="widget">
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Careers</a></li>
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Partners</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>Social Network</h5>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-pinterest fa-lg"></i></a>
+                                <a href="#"><i class="fas fa-rss fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subfooter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="de-flex">
+                                <div class="de-flex-col">
+                                    <a href="index.html">
+                                        Copyright 2024 - Rentaly by yassmine&chaimaa&lamiae
+                                    </a>
+                                </div>
+                                <ul class="menu-simple">
+                                    <li><a href="#">Terms &amp; Conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer close -->
+    </div>
+
+    <!-- Javascript Files -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/designesia.js' %}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.btn-main');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    ripple.style.left = (e.clientX - button.getBoundingClientRect().left) + 'px';
+                    ripple.style.top = (e.clientY - button.getBoundingClientRect().top) + 'px';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Animation for input focus
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 0 0 3px rgba(230, 57, 70, 0.3)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Preview image on file select
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.querySelector('.image-square img');
+            
+            if (imageInput && imagePreview) {
+                imageInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            imagePreview.src = e.target.result;
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

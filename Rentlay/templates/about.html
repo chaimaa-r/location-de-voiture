@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <title>About Us - Premium Car Rental Experience</title>
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Premium Car Rental Services" name="description">
+    <!-- CSS Files -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/coloring.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- color scheme -->
+    <link id="colors" href="{% static 'colors/scheme-01.css' %}" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-red: #cc0000;
+            --dark-red: #990000;
+            --light-grey: #f5f5f5;
+            --medium-grey: #e0e0e0;
+            --dark-grey: #333333;
+            --text-grey: #555555;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-grey);
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--dark-grey);
+        }
+        .hero-section {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-overlay {
+            background: rgba(0,0,0,0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .feature-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+            border-top: 4px solid var(--primary-red);
+        }
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+        .stats-section {
+            background: linear-gradient(rgba(51,51,51,0.9), rgba(51,51,51,0.9)), url('{% static "images/background/stats-bg.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+        }
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 15px;
+            border-left: 3px solid var(--primary-red);
+        }
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary-red);
+        }
+        .quote-icon {
+            color: var(--primary-red);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .team-member {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .team-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn-red {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+        }
+        .btn-red:hover {
+            background-color: var(--dark-red);
+            color: white;
+        }
+        .btn-outline-red {
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            background: transparent;
+        }
+        .btn-outline-red:hover {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        .bg-light-grey {
+            background-color: var(--light-grey);
+        }
+        .text-red {
+            color: var(--primary-red);
+        }
+        .border-red {
+            border-color: var(--primary-red);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- page preloader -->
+        <div id="de-preloader"></div>
+
+        <!-- header begin (conservé comme demandé) -->
+        <header class="transparent scroll-light has-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex sm-pt10">
+                            <div class="de-flex-col">
+                                <div class="de-flex-col">
+                                    <!-- logo begin -->
+                                    <div id="logo">
+                                        <a href="{% url 'home' %}">
+                                            <img class="logo-1" src="{% static 'images/logo-light.png' %}" alt="">
+                                            <img class="logo-2" src="{% static 'images/logo-light.png' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- logo close -->
+                                </div>
+                            </div>
+                            <div class="de-flex-col header-col-mid">
+                                <ul id="mainmenu">
+                                    <li><a class="menu-item" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="menu-item" href="{% url 'cars' %}">Cars</a></li>
+                                    <li><a class="menu-item" href="{% url 'about' %}">About Us</a></li>
+                                    <li><a class="menu-item" href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="de-flex-col">
+                                <div class="menu_side_area">
+                                    <a href="{% url 'login' %}" class="btn-main">Sign In</a>
+                                    <span id="menu-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header close -->
+
+        <!-- Hero Section -->
+        <section class="hero-section jarallax" style="background-image: url('{% static 'images/background/luxury-cars.jpg' %}');">
+            <div class="hero-overlay">
+                <div class="container">
+                    <h1 class="hero-title">Our Story</h1>
+                    <p class="hero-subtitle">Discover the journey of excellence that defines our premium car rental service</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-5 bg-light-grey">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZa5BrQq-T9-7fItOr2LqDvtAO7488T82xfw&s" alt="Our Showroom" class="img-fluid rounded shadow-lg"width="400px">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="mb-4">Redefining <span class="text-red">Luxury Mobility</span></h2>
+                        <p class="lead">At Rentaly, we don't just rent cars - we craft unforgettable experiences.</p>
+                        <p>Founded in 2010 with a single luxury sedan, we've grown into the region's most trusted premium car rental service. Our journey has been driven by an unwavering commitment to excellence, personalized service, and an impeccable fleet.</p>
+                        <p>What sets us apart is our attention to detail. From the moment you make a reservation to the final check-in, every touchpoint is designed to exceed your expectations. Our team of mobility experts are passionate about matching you with the perfect vehicle for every occasion.</p>
+                        <div class="mt-4">
+                            <a href="{% url 'cars' %}" class="btn btn-red btn-lg">Explore Our Fleet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-6 mb-4 mb-md-0">
+                        <div class="stat-number">15,425+</div>
+                        <p>Completed Journeys</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4 mb-md-0">
+                        <div class="stat-number">8,745+</div>
+                        <p>Satisfied Clients</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4 mb-md-0">
+                        <div class="stat-number">235+</div>
+                        <p>Premium Vehicles</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-number">15+</div>
+                        <p>Years of Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <h2>Why Choose <span class="text-red">Rentaly</span></h2>
+                    <p class="lead">The premium difference you can feel at every mile</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h4>Premium Fleet</h4>
+                            <p>Our meticulously maintained vehicles represent the finest selection from leading luxury brands, each handpicked for performance and comfort.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <h4>Concierge Service</h4>
+                            <p>Enjoy white-glove treatment with our personalized concierge service, available 24/7 to cater to your every need and special request.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Complete Protection</h4>
+                            <p>Travel with peace of mind thanks to our comprehensive insurance coverage and 24/7 roadside assistance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-5">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <h2>Client <span class="text-red">Testimonials</span></h2>
+                    <p class="lead">Hear what our valued customers say about their experiences</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <img src="https://th.bing.com/th/id/OIP.tjUOUBGnthmW762mbRAFdQHaE8?rs=1&pid=ImgDetMain" alt="Client" class="testimonial-img">
+                            <p>"The level of service exceeded all my expectations. The car was impeccable and the delivery process seamless. Truly a premium experience!"</p>
+                            <h5>Michael Johnson</h5>
+                            <p class="text-muted">Business Executive</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsNWPhXbh68-pBV7iNSR76TAgOVQRSqkuogA&s" alt="Client" class="testimonial-img">
+                            <p>"I've rented from many companies worldwide, but Rentaly stands out for their attention to detail and exceptional customer care."</p>
+                            <h5>Sarah Williams</h5>
+                            <p class="text-muted">Frequent Traveler</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNhTZJTtkR6b-ADMhmzPvVwaLuLdz273wvQ&s" alt="Client" class="testimonial-img">
+                            <p>"For our wedding, we wanted something special. Rentaly delivered a stunning car along with a chauffeur who made the day even more memorable."</p>
+                            <h5>David & Emily Chen</h5>
+                            <p class="text-muted">Newlyweds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5 text-center" style="background: linear-gradient(rgba(51,51,51,0.9), rgba(51,51,51,0.9)), url('{% static 'images/background/cta-bg.jpg' %}'); background-size: cover; color: white;">
+            <div class="container py-5">
+                <h2 class="mb-4">Ready for an Exceptional Journey?</h2>
+                <p class="lead mb-5">Experience the Rentaly difference today</p>
+                <a href="{% url 'cars' %}" class="btn btn-red btn-lg mr-3">Browse Our Fleet</a>
+                <a href="{% url 'contact' %}" class="btn btn-outline-red btn-lg">Contact Us</a>
+            </div>
+        </section>
+
+        <!-- footer begin -->
+        <footer class="text-light" style="background-color: var(--dark-grey);">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <h5 class="mb-4">About Rentaly</h5>
+                        <p>Where excellence meets the open road. We're committed to redefining car rental through unparalleled service, premium vehicles, and memorable experiences.</p>
+                        <div class="social-icons mt-4">
+                            <a href="#" class="text-light mr-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-light mr-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-light mr-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-light"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="mb-4">Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="{% url 'home' %}" class="text-light">Home</a></li>
+                            <li class="mb-2"><a href="{% url 'cars' %}" class="text-light">Our Fleet</a></li>
+                            <li class="mb-2"><a href="{% url 'about' %}" class="text-light">About Us</a></li>
+                            <li class="mb-2"><a href="{% url 'contact' %}" class="text-light">Contact</a></li>
+                            <li><a href="#" class="text-light">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="mb-4">Contact Info</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-3"><i class="fas fa-map-marker-alt mr-2"></i> 123 Premium Avenue, Luxury District</li>
+                            <li class="mb-3"><i class="fas fa-phone mr-2"></i> +1 (555) 123-4567</li>
+                            <li class="mb-3"><i class="fas fa-envelope mr-2"></i> contact@rentaly-premium.com</li>
+                            <li><i class="fas fa-clock mr-2"></i> 24/7 Service</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <h5 class="mb-4">Newsletter</h5>
+                        <p>Subscribe to receive updates on our latest offers and premium vehicles.</p>
+                        <form class="mt-4">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email">
+                            </div>
+                            <button type="submit" class="btn btn-red btn-block">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="py-3" style="background-color: #000;">
+                <div class="container text-center">
+                    <p class="mb-0">© 2023 Rentaly Premium. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        <!-- footer close -->
+    </div>
+
+    <!-- Javascript Files -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/designesia.js' %}"></script>
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>Rentaly - Premium Car Rental</title>
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Premium Car Rental Services" name="description">
+    <!-- CSS Files -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/coloring.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- color scheme -->
+    <link id="colors" href="{% static 'colors/scheme-01.css' %}" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-red: #e63946;
+            --dark-red: #d00000;
+            --light-red: #ff6b6b;
+            --dark-grey: #2b2d42;
+            --medium-grey: #4a4e69;
+            --light-grey: #8d99ae;
+            --light-bg: #edf2f4;
+            --pure-white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-grey);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .dynamic-header {
+            background: #262626;
+ 
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--pure-white), var(--light-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-dot {
+            color: var(--primary-red);
+            font-size: 32px;
+        }
+
+        .cta-button {
+            background: linear-gradient(to right, var(--primary-red), var(--dark-red));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(89, 90, 99, 0.255), rgba(111, 113, 135, 0.545)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pure-white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-highlight {
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: var(--pure-white);
+            padding: 40px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark-grey);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background-color: var(--light-bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(to right, var(--primary-red), var(--dark-red));
+            color: white;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--light-grey);
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box button {
+            background: linear-gradient(to right, var(--primary-red), var(--dark-red));
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 50px 50px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover {
+            background: linear-gradient(to right, var(--dark-red), #b30000);
+        }
+
+        /* Cars Grid */
+        .cars-section {
+            padding: 60px 0;
+            background-color: var(--light-bg);
+        }
+
+        .cars-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background-color: var(--pure-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .car-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .car-image:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-make {
+            font-size: 0.9rem;
+            color: var(--light-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .car-model {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-grey);
+            margin-bottom: 15px;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-bg);
+            padding-bottom: 15px;
+        }
+
+        .spec {
+            text-align: center;
+            flex: 1;
+        }
+
+        .spec-icon {
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark-grey);
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: var(--light-grey);
+        }
+
+        .car-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-grey);
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--light-grey);
+        }
+
+        .car-cta {
+            background: linear-gradient(to right, var(--primary-red), var(--dark-red));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .car-cta:hover {
+            background: linear-gradient(to right, var(--dark-red), #b30000);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Reservation Info */
+        .reservation-info {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .reservation-info span {
+            font-weight: bold;
+            color: var(--primary-red);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(to right, var(--dark-grey), var(--medium-grey));
+            padding: 60px 0;
+            color: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(230, 57, 70, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-grey);
+            color: var(--light-grey);
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--primary-red);
+        }
+
+        .footer-about {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-red);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--light-grey);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            margin-right: 10px;
+            color: var(--primary-red);
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-grey);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .search-box input {
+                border-radius: 50px;
+            }
+            
+            .search-box button {
+                border-radius: 50px;
+                padding: 15px;
+            }
+        }
+        
+           .btn-main {
+            background: rgba(230, 57, 70, 0.3);
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 5px 20px !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            letter-spacing: 0.5px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.3) !important;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        
+        .btn-main:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn-main:hover:before {
+            left: 100%;
+        }
+        
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(230, 57, 70, 0.4) !important;
+        }
+        
+        .btn-main:active {
+            transform: translateY(-1px);
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+        <header class="transparent scroll-light has-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex sm-pt10">
+                            <div class="de-flex-col">
+                                <div class="de-flex-col">
+                                    <!-- logo begin -->
+                                    <div id="logo">
+                                        <a href="{% url 'home' %}">
+                                            <img class="logo-1" src="{% static 'images/logo-light.png' %}" alt="">
+                                            <img class="logo-2" src="{% static 'images/logo-light.png' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- logo close -->
+                                </div>
+                            </div>
+                            <div class="de-flex-col header-col-mid">
+                                <ul id="mainmenu">
+                                    <li><a class="menu-item" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="menu-item" href="{% url 'cars' %}">Cars</a></li>
+                                    <li><a class="menu-item" href="{% url 'about' %}">About Us</a></li>
+                                    <li><a class="menu-item" href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="de-flex-col">
+                                <div class="menu_side_area">
+                                    <a href="{% url 'login' %}" class="btn-main">Sign In</a>
+                                    <span id="menu-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Trouvez la voiture parfaite</h1>
+            <p class="hero-subtitle">Découvrez notre collection exclusive de véhicules haut de gamme à des prix <span class="hero-highlight">exceptionnels</span></p>
+            <a href="#cars" class="cta-button">Explorer la collection</a>
+        </div>
+    </section>
+
+    <!-- Cars Section - Intégration de la base de données -->
+    <section class="cars-section" id="cars">
+        <div class="cars-container">
+            <div class="cars-grid">
+                {% for car in cars_list %}
+                <div class="car-card">
+                    <!-- Badge conditionnel -->
+                    {% if car.year >= 2023 %}
+                    <div class="car-badge">Nouveau</div>
+                    {% elif car.kilometer < 10000 %}
+                    <div class="car-badge">Faible KM</div>
+                    {% endif %}
+                    
+                    <!-- Image de la voiture -->
+                    <div class="car-image" style="background-image: url('{% static '../media/' %}{{ car.image }}');"></div>
+                    
+                    <div class="car-info">
+                        <div class="car-make">{{ car.brand }}</div>
+                        <h3 class="car-model">{{ car.model }}</h3>
+                        
+                        <div class="car-specs">
+                            <div class="spec">
+                                <div class="spec-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <div class="spec-value">{{ car.year }}</div>
+                                <div class="spec-label">Année</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-icon"><i class="fas fa-gas-pump"></i></div>
+                                <div class="spec-value">{{ car.fuel }}</div>
+                                <div class="spec-label">Carburant</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-icon"><i class="fas fa-road"></i></div>
+                                <div class="spec-value">35000 Km</div>
+                                <div class="spec-label">KM</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Information de réservation -->
+                        <div class="reservation-info">
+                            <span>Pour réserver :</span> 075678456
+                        </div>
+                        
+                        <div class="car-price">
+                            <div>
+                                <div class="price-tag">{{ car.price }} DH</div>
+                                <div class="price-label">par jour</div>
+                            </div>
+                       
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no-cars">
+                    <div class="car-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-car" style="font-size: 4rem; color: var(--light-grey); margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--dark-grey);">Aucune voiture disponible pour le moment</h3>
+                        <p style="color: var(--light-grey); margin-top: 10px;">Veuillez vérifier ultérieurement</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-car"></i></div>
+                <div class="stat-value">{{ cars_list|length }}+</div>
+                <div class="stat-label">Véhicules Disponibles</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-value">12,500+</div>
+                <div class="stat-label">Clients Satisfaits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="stat-value">15</div>
+                <div class="stat-label">Agences au Maroc</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-headset"></i></div>
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Assistance Client</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">Velocity<span>.</span></div>
+                <p class="footer-about">
+                    Velocity propose une large gamme de véhicules de qualité à des prix compétitifs. 
+                    Notre mission est de rendre la location de voiture simple, rapide et accessible à tous.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Voitures</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> À propos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Catégories</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Berlines</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> SUVs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Voitures Sport</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Voitures de Luxe</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Voitures Électriques</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Contactez-nous</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Avenue Mohammed V, Casablanca</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +212 6 12 34 56 78</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> contact@velocity.ma</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> Lun-Ven: 8h-20h | Sam: 9h-18h</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Velocity. Tous droits réservés. | Conçu avec <i class="fas fa-heart" style="color: var(--primary-red);"></i> au Maroc
+        </div>
+    </footer>
+
+    <script>
+        // Active filter button functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter logic would go here (would need to connect to backend)
+                console.log("Filter applied: " + this.textContent);
+            });
+        });
+        
+        // Car card hover effect enhancement
+        document.querySelectorAll('.car-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value;
+            console.log("Searching for: " + searchTerm);
+            // This would trigger a search request to the backend
+        });
+    </script>
+</body>
+</html>

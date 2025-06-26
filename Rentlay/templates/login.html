@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>Login | Rentaly</title>
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Rentaly - Multipurpose Vehicle Car Rental Website Template" name="description">
+    <meta content="" name="keywords">
+    <meta content="" name="author">
+    
+    <!-- CSS Files -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="bootstrap">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" type="text/css" id="mdb">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/coloring.css' %}" rel="stylesheet" type="text/css">
+    
+    <!-- Style personnalisé -->
+    <style>
+        :root {
+            --primary-gray: #2a2a35;
+            --secondary-gray: #3a3a45;
+            --form-gray: #444452;
+            --light-gray: #f5f7fa;
+            --accent-red: #e63946;
+            --dark-red: #d62839;
+            --text-light: #ffffff;
+            --text-gray: #adb5bd;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, #1a1a23 100%);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(42, 42, 53, 0.8) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(42, 42, 53, 0.95) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+        }
+        
+        #logo img {
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+        
+        #logo:hover img {
+            transform: scale(1.05);
+        }
+        
+        #mainmenu .menu-item {
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        
+        #mainmenu .menu-item:hover {
+            color: var(--accent-red) !important;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        #mainmenu .menu-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+        
+        #mainmenu .menu-item:hover:after {
+            width: 80%;
+        }
+        
+        /* Espace ajouté entre le header et le contenu */
+        #content {
+            padding-top: 120px; /* Augmenté de 80px à 120px */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-wrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 120px); /* Ajusté pour l'espace supplémentaire */
+            padding: 40px 0;
+        }
+        
+        .login-container {
+            background: var(--form-gray);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--dark-red), var(--accent-red));
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h4 {
+            color: var(--text-light);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .login-header p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-red), var(--dark-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3);
+        }
+        
+        .login-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        /* Form Elements */
+        .field-set {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-control {
+            background: var(--secondary-gray) !important;
+            border: 2px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px !important;
+            padding: 15px 20px 15px 50px !important;
+            color: var(--text-light) !important;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            height: auto;
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-gray) !important;
+            font-weight: 400;
+        }
+        
+        .form-control:focus {
+            background: var(--form-gray) !important;
+            border-color: var(--accent-red) !important;
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.2) !important;
+            color: var(--text-light) !important;
+            transform: translateY(-2px);
+        }
+        
+        .field-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus + .field-icon {
+            color: var(--accent-red);
+        }
+        
+        /* Button */
+        .btn-main {
+            background: linear-gradient(135deg, var(--accent-red), var(--dark-red)) !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 5px 20px !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            letter-spacing: 0.5px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.3) !important;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        
+        .btn-main:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn-main:hover:before {
+            left: 100%;
+        }
+        
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(230, 57, 70, 0.4) !important;
+        }
+        
+        .btn-main:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.2), rgba(220, 53, 69, 0.1));
+            color: #ff6b7a;
+            border-left: 4px solid var(--danger-red);
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.2), rgba(40, 167, 69, 0.1));
+            color: #4ade80;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-gray);
+            border-top: 1px solid rgba(230, 57, 70, 0.3);
+            margin-top: 0;
+        }
+        
+        footer .widget h5 {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        
+        footer .widget h5:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-red);
+        }
+        
+        footer .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        footer .social-icons a:hover {
+            background: var(--accent-red);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(230, 57, 70, 0.3);
+        }
+        
+        footer p, footer li a {
+            color: var(--text-gray);
+        }
+        
+        footer li a:hover {
+            color: var(--accent-red);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+            
+            .login-header h4 {
+                font-size: 1.5rem;
+            }
+            
+            .login-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .login-icon i {
+                font-size: 1.5rem;
+            }
+            
+            #mainmenu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            header .container {
+                padding: 0 15px;
+            }
+            
+            header {
+                height: 70px;
+            }
+            
+            #content {
+                padding-top: 100px; /* Ajustement pour mobile */
+            }
+            
+            .main-wrapper {
+                min-height: calc(100vh - 100px); /* Ajustement pour mobile */
+                padding: 30px 0;
+            }
+        }
+        
+        /* Preloader enhancement */
+        #de-preloader {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, #1a1a23 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- page preloader begin -->
+        <div id="de-preloader"></div>
+        <!-- page preloader close -->
+
+        <!-- header begin -->
+        <header class="transparent scroll-light has-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex sm-pt10">
+                            <div class="de-flex-col">
+                                <div class="de-flex-col">
+                                    <!-- logo begin -->
+                                    <div id="logo">
+                                        <a href="{% url 'home' %}">
+                                            <img class="logo-1" src="{% static 'images/logo.png' %}" alt="Rentaly Logo">
+                                        </a>
+                                    </div>
+                                    <!-- logo close -->
+                                </div>
+                            </div>
+                            <div class="de-flex-col header-col-mid">
+                                <ul id="mainmenu">
+                                    <li><a class="menu-item" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="menu-item" href="{% url 'cars' %}">Cars</a></li>
+                                    <li><a class="menu-item" href="{% url 'about' %}">About Us</a></li>
+                                    <li><a class="menu-item" href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="de-flex-col">
+                                <div class="menu_side_area">
+                                    <a href="{% url 'login' %}" class="btn-main">Sign In</a>
+                                    <span id="menu-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header close -->
+
+        <!-- content begin -->
+        <div class="no-bottom no-top" id="content">
+            <div class="container-fluid">
+                <div class="main-wrapper">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5 col-md-7 col-sm-9 col-11">
+                                <div class="login-container">
+                                    <div class="login-header">
+                                        <div class="login-icon">
+                                            <i class="fas fa-user-circle"></i>
+                                        </div>
+                                        <h4>Welcome Back</h4>
+                                        <p>Sign in to access your account</p>
+                                    </div>
+                                    
+                                    <!-- Alerts -->
+                                    {% for message in messages %}
+                                        {% if message.tags == 'error' %}
+                                            <div class="alert alert-danger">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                {{ message }}
+                                            </div>
+                                        {% elif message.tags == 'success' %}
+                                            <div class="alert alert-success">
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                {{ message }}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    <form id="form_register" class="form-border" method="post" action="{% url 'cnx' %}">
+                                        {% csrf_token %}
+                                        <div class="field-set">
+                                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username" required />
+                                            <i class="fas fa-user field-icon"></i>
+                                        </div>
+                                        
+                                        <div class="field-set">
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required />
+                                            <i class="fas fa-lock field-icon"></i>
+                                        </div>
+                                        
+                                        <div id="submit">
+                                            <input type="submit" id="send_message" value="Sign In" class="btn-main" />
+                                        </div>
+                                    </form>
+                                    
+                                    <div class="text-center mt-4">
+                                        <p class="text-gray">
+                                            <small>Don't have an account? <a href="#" style="color: var(--accent-red); text-decoration: none;">Contact Admin</a></small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content close -->
+
+        <!-- footer begin -->
+        <footer class="text-light">
+            <div class="container">
+                <div class="row g-custom-x">
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>About Rentaly</h5>
+                            <p>Where quality meets affordability. We understand the importance of a smooth and enjoyable journey without the burden of excessive costs.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>Contact Info</h5>
+                            <address class="s1">
+                                <span><i class="fa fa-map-marker fa-lg"></i>08 W 36th St, New York, NY 10001</span>
+                                <span><i class="fa fa-phone fa-lg"></i>+1 333 9296</span>
+                                <span><i class="fa fa-envelope-o fa-lg"></i><a href="mailto:contact@example.com">contact@example.com</a></span>
+                                <span><i class="fa fa-file-pdf-o fa-lg"></i><a href="#">Download Brochure</a></span>
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <h5>Quick Links</h5>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="widget">
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Careers</a></li>
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Partners</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget">
+                            <h5>Social Network</h5>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-pinterest fa-lg"></i></a>
+                                <a href="#"><i class="fas fa-rss fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subfooter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="de-flex">
+                                <div class="de-flex-col">
+                                    <a href="index.html">
+                                        Copyright 2024 - Rentaly by yassmine&chaimaa&lamiae
+                                    </a>
+                                </div>
+                                <ul class="menu-simple">
+                                    <li><a href="#">Terms &amp; Conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer close -->
+    </div>
+
+    <!-- Javascript Files -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/designesia.js' %}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add ripple effect to button
+            const button = document.querySelector('.btn-main');
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - button.getBoundingClientRect().left) + 'px';
+                ripple.style.top = (e.clientY - button.getBoundingClientRect().top) + 'px';
+                ripple.style.width = ripple.style.height = '40px';
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // Input focus animations
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+                
+                // Check if input has value on load
+                if (input.value) {
+                    input.parentElement.classList.add('focused');
+                }
+            });
+        });
+        
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

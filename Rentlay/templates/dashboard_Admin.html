@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <title>Dashboard Admin</title>
+    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Rentaly - Multipurpose Vehicle Car Rental Website Template" name="description">
+    <meta content="" name="keywords">
+    <meta content="" name="author">
+    <!-- CSS Files -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="bootstrap">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" type="text/css" id="mdb">
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/coloring.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Nouveau style personnalisé -->
+    <style>
+        :root {
+            --primary-gray: #2a2a35;
+            --secondary-gray: #3a3a45;
+            --light-gray: #f5f7fa;
+            --accent-red: #e63946;
+            --dark-red: #d62839;
+            --text-light: #f8f9fa;
+            --text-gray: #adb5bd;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, #1a1a23 100%);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(42, 42, 53, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #logo img {
+            filter: brightness(0) invert(1);
+        }
+        
+        #mainmenu .menu-item {
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        #mainmenu .menu-item:hover {
+            color: var(--accent-red) !important;
+        }
+        
+        #mainmenu .menu-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+        
+        #mainmenu .menu-item:hover:after {
+            width: 100%;
+        }
+        
+        /* Sidebar */
+        .card.sidebar-card {
+            background: var(--secondary-gray);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+            overflow: hidden;
+        }
+        
+        .profile_avatar {
+            background: linear-gradient(135deg, var(--primary-gray) 0%, var(--secondary-gray) 100%);
+            padding: 30px 20px;
+            margin: -30px -30px 0 -30px;
+            text-align: center;
+        }
+        
+        .profile_img img {
+            border: 3px solid var(--accent-red);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile_img img:hover {
+            transform: scale(1.05);
+        }
+        
+        .menu-col a {
+            color: var(--text-light);
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: block;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-col a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .menu-col a:hover:before {
+            left: 100%;
+        }
+        
+        .menu-col a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-red);
+            transform: translateX(5px);
+        }
+       
+        
+        /* Stats Cards */
+        .stats-card {
+            background: var(--secondary-gray);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+            border: none;
+            height: 100%;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(230, 57, 70, 0.3);
+        }
+        
+        .stats-card .symbol {
+            background: rgba(230, 57, 70, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.4s ease;
+        }
+        
+        .stats-card:hover .symbol {
+            background: var(--accent-red);
+            transform: scale(1.1);
+        }
+        
+        .stats-card .symbol i {
+            color: var(--accent-red);
+            font-size: 2rem;
+            transition: all 0.4s ease;
+        }
+        
+        .stats-card:hover .symbol i {
+            color: white;
+        }
+        
+        .stats-card:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-red), var(--dark-red));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .stats-card:hover:after {
+            transform: scaleX(1);
+        }
+        
+        /* Table */
+        .table-card {
+            background: var(--secondary-gray);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            border: none;
+        }
+        
+        .table-card h4 {
+            border-bottom: 2px solid var(--accent-red);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+        
+        .de-table {
+            background: transparent;
+            color: var(--text-light);
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        
+        .de-table thead tr {
+            background: rgba(230, 57, 70, 0.2);
+        }
+        
+        .de-table th {
+            border: none !important;
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 15px 20px !important;
+        }
+        
+        .de-table tbody tr {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .de-table tbody tr:hover {
+            background: rgba(230, 57, 70, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .de-table td {
+            border: none;
+            padding: 15px 20px !important;
+            vertical-align: middle;
+        }
+        
+        .de-table a {
+            color: var(--text-gray);
+            transition: color 0.3s ease;
+            margin: 0 8px;
+            font-size: 1.2rem;
+        }
+        
+        .de-table a:hover {
+            color: var(--accent-red);
+        }
+        
+        .de-menu-profile img {
+            border: 2px solid var(--accent-red);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .de-menu-profile:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-gray);
+            border-top: 1px solid rgba(230, 57, 70, 0.3);
+        }
+        
+        footer .widget h5 {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        footer .widget h5:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-red);
+        }
+        
+        footer .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        footer .social-icons a:hover {
+            background: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        /* Alerts */
+        .alert {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border-left: 4px solid #dc3545;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .de-flex {
+                flex-direction: column;
+            }
+            
+            .de-flex-col {
+                margin-bottom: 15px;
+            }
+            
+            .header-col-mid {
+                order: 3;
+                width: 100%;
+            }
+            
+            #mainmenu {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- page preloader begin -->
+        <div id="de-preloader"></div>
+        <!-- page preloader close -->
+
+        <!-- header begin -->
+        <header class="transparent scroll-light has-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex sm-pt10">
+                            <div class="de-flex-col">
+                                <div class="de-flex-col">
+                                    <!-- logo begin -->
+                                    <div id="logo">
+                                        <a href="{% url 'home' %}">
+                                            <img class="logo-1" src="{% static 'images/logo.png' %}" alt="">
+                                            <img class="logo-2" src="{% static 'images/logo.png' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- logo close -->
+                                </div>
+                            </div>
+                            <div class="de-flex-col header-col-mid">
+                                <ul id="mainmenu">
+                                    <li><a class="menu-item" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="menu-item" href="{% url 'cars' %}">Cars</a></li>
+                                    <li><a class="menu-item" href="{% url 'about' %}">About Us</a></li>
+                                    <li><a class="menu-item" href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="de-flex-col">
+                                <div class="menu_side_area">
+                                    <div class="de-login-menu">
+                                        <span id="de-click-menu-profile" class="de-menu-profile">
+                                            <img src="{% static '../media/' %}{{ admin_image }}" class="img-fluid" alt="">
+                                        </span>
+                                        <div id="de-submenu-profile" class="de-submenu">
+                                            <div class="d-name">
+                                                <h4>{{ admin.username }}</h4>
+                                                <span class="text-gray">{{ admin.email }}</span>
+                                            </div>
+                                            <div class="d-line"></div>
+                                            <ul class="menu-col">
+                                                <li><a href="{% url 'signout' %}"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+                                            </ul>
+                                        </div>
+                                        <span id="menu-btn"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <br><br><br><br>
+
+        <!-- section begin -->
+        <section id="section-settings">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 mb30">
+                        <div class="card padding30 rounded-5 sidebar-card">
+                            <div class="profile_avatar">
+                                <div class="profile_img">
+                                    <img src="{% static '../media/' %}{{ admin.image }}">
+                                </div>
+                                <div class="profile_name">
+                                    <h4>
+                                        {{ admin.username }}
+                                        <span class="profile_username text-gray">Administrator</span>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="spacer-20"></div>
+                            <ul class="menu-col">
+    <li><a href="{% url 'dashboard_Admin' %}" style="color: white;"><i class="fa fa-home"></i> Dashboard</a></li>
+    <li><a href="{% url 'add_manager' %}" class="active" style="color: white;"><i class="fa fa-user-plus"></i> Add new manager</a></li>    
+    <li><a href="{% url 'signout' %}" style="color: white;"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+</ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-3 col-6 mb25 order-sm-1">
+                                <div class="card padding30 rounded-5 stats-card">
+                                    <div class="symbol mb40">
+                                        <i class="fa fa-3x fa-car"></i>
+                                    </div>
+                                    <span class="h5 mb0">Cars</span>
+                                    <span class="text-gray">{{count_cars}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6 mb25 order-sm-1">
+                                <div class="card padding30 rounded-5 stats-card">
+                                    <div class="symbol mb40">
+                                        <i class="fa fa-3x fa-users"></i>
+                                    </div>
+                                    <span class="h5 mb0">Clients</span>
+                                    <span class="text-gray">{{count_client}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6 mb25 order-sm-1">
+                                <div class="card padding30 rounded-5 stats-card">
+                                    <div class="symbol mb40">
+                                        <i class="fa fa-3x fa-calendar"></i>
+                                    </div>
+                                    <span class="h5 mb0">Reservations</span>
+                                    <span class="text-gray">{{count_reserv}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6 mb25 order-sm-1">
+                                <div class="card padding30 rounded-5 stats-card">
+                                    <div class="symbol mb40">
+                                        <i class="fa fa-3x fa-user-tie"></i>
+                                    </div>
+                                    <span class="h5 mb0">Managers</span>
+                                    <span class="text-gray">{{count_managers}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card padding30 rounded-5 mb25 table-card">
+                            <div>
+                                <!-- section close -->
+                                {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger">
+                                        {{ message }}
+                                    </div>
+                                {% elif message.tags == 'success' %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+
+                            {% if no_managers %}
+                                <p>No Managers found.</p>
+                            {% else %}
+                                <h4>All managers</h4>
+                                
+                                <table class="table de-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><span class="text-gray">Image</span></th>
+                                            <th scope="col"><span class="text-gray">Username</span></th>
+                                            <th scope="col"><span class="text-gray">Last Name</span></th>
+                                            <th scope="col"><span class="text-gray">First Name</span></th>
+                                            <th scope="col"><span class="text-gray">Email</span></th>
+                                            <th scope="col"><span class="text-gray">Phone</span></th>
+                                            <th scope="col"><span class="text-gray">Actions</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for manager in managers_list %}
+                                            <tr>
+                                                {% if manager.image_path %}
+                                                <td> 
+                                                    <span id="de-click-menu-profile" class="de-menu-profile">
+                                                        <img src="../media/{{ manager.image_path }}" class="img-fluid" alt="">
+                                                    </span>
+                                                </td>
+                                                {% endif %} 
+                                                <td>{{ manager.username }}</td>
+                                                <td>{{ manager.lastname }}</td>
+                                                <td>{{ manager.name }}</td>
+                                                <td>{{ manager.email }}</td>
+                                                <td>{{ manager.phone}}</td>
+                                                <td>
+                                                    <a href="/show_manager/{{ manager.id }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="/delete_manager/{{ manager.id}}">
+                                                        <i class="fa fa-trash"></i> 
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- footer begin -->
+    <footer class="text-light">
+        <div class="container">
+            <div class="row g-custom-x">
+                <div class="col-lg-3">
+                    <div class="widget">
+                        <h5>About Rentaly</h5>
+                        <p>Where quality meets affordability. We understand the importance of a smooth and enjoyable
+                            journey without the burden of excessive costs.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="widget">
+                        <h5>Contact Info</h5>
+                        <address class="s1">
+                            <span><i class="fa fa-map-marker fa-lg"></i>08 W 36th St, New York, NY 10001</span>
+                            <span><i class="fa fa-phone fa-lg"></i>+1 333 9296</span>
+                            <span><i class="fa fa-envelope-o fa-lg"></i><a
+                                    href="mailto:contact@example.com">contact@example.com</a></span>
+                            <span><i class="fa fa-file-pdf-o fa-lg"></i><a href="#">Download Brochure</a></span>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <h5>Quick Links</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="widget">
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                    <li><a href="#">News</a></li>
+                                    <li><a href="#">Partners</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="widget">
+                        <h5>Social Network</h5>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                            <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+                            <a href="#"><i class="fab fa-pinterest fa-lg"></i></a>
+                            <a href="#"><i class="fas fa-rss fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="subfooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="de-flex">
+                            <div class="de-flex-col">
+                                <a href="index.html">
+                                    Copyright 2024 - Rentaly by yassmine&chaimaa&lamiae
+                                </a>
+                            </div>
+                            <ul class="menu-simple">
+                                <li><a href="#">Terms &amp; Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer close -->
+
+    <!-- Javascript Files -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/designesia.js' %}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgiM7ogCAA2Y5pgSk2KXZfxF5S_1jsptA&amp;libraries=places&amp;callback=initPlaces"
+        async="" defer=""></script>
+</body>
+</html>
